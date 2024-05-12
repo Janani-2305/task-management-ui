@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    
+    
+    /* height: 100vh; */
+  }
+ 
+  h1,h3{
+    text-align: center;
+    color: black;
+  }
+  
+  .form-container {
+    width: 350px; /* Adjust width as needed */
+  }
+  
+  .form_ctrl {
+    display: block;
+    
+    /* margin-bottom: 10px; */
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+ 
+  
+  

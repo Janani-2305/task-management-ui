@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  sm: 540px;
+  
+}
+
+/* .card {
+  width: 50rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.invalid-feedback {
+  color: red;
+}
