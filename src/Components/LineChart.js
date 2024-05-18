@@ -1,76 +1,32 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import Chart, { CategoryScale } from 'chart.js/auto';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 
-export const LineChart = () => {
-    const chartRef = useRef(null);
-    const chartInstance = useRef(null);
+ function LineChart() {
 
-    useEffect(() => {
-        if (chartInstance.current) {
-            chartInstance.current.destroy();
+    const [data, setData] = useState([]);
+
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+        if(token){
+            const axiosConfig={
+                headers:{
+                    Accept:"application/json",
+                    Authorization: `Bearer` ${token}
+                }
+            };
+            axios.get('http://task-management-api-env.eba-esuuzu4p.ap-south-1.elasticbeanstalk.com/api/v1//chart/get-chart-data', axiosConfig).then((res)=>{
+                console.log(res.data.data)
+            })
         }
-        const myChartRef = chartRef.current.getContext("2d");
+       
+    }, [])
 
-        chartInstance.current = new Chart(myChartRef, {
-            type: "line",
-            data: {
-                labels: ['week1', 'week2', 'week3', 'week4', 'week5'],
-                datasets: [{
-                    label: "Work Completed",
-                    data: [1, 2, 2, 4, 3],
-                    fill: false,
-                    borderColor: 'rgb(75,192,192)',
-                    borderWidth: 2
-                }]
-            }
-        });
-
-        return () => {
-            if (chartInstance.current) {
-                chartInstance.current.destroy();
-            }
-        };
-    }, []);
-
-    const downloadImage = useCallback(() => {
-        html2canvas(chartRef.current).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            const imgWidth = 308;
-            const pageHeight = 395;
-            const imgHeight = canvas.height * imgWidth / canvas.width;
-            let heightLeft = imgHeight;
-            let position = 0;
-
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-            pdf.save("chart.pdf");
-        });
-    }, []);
-
-    Chart.register(CategoryScale);
-
-    return (
-        <div style={{ textAlign: 'center' }}>
-            <button type='button' onClick={downloadImage}>
-                <FontAwesomeIcon icon={faDownload} size="1x" />
-                <br />
-               
-            </button>
-            <canvas ref={chartRef} style={{ width: "100px", height: "100px", marginTop: '20px' }}></canvas>
+    return(
+        <div className="wrapper">
+            LineChart
         </div>
     );
-};
-export default LineChart;
+ }
+
+ export default LineChart;

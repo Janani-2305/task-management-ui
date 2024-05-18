@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const HeaderComponent = () => {
+  
   return (
+   
     <div>
       <header>
         <nav className="navbar navbar-dark bg-primary"> 

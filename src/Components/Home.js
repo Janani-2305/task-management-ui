@@ -5,6 +5,7 @@ import '../Components/Home.css';
 import LineChart from './LineChart';
 import Tasks from './ListTaskComponent';
 import '../Components/Home.css';
+
 function Home() {
   
   return (

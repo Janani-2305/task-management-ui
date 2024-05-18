@@ -12,6 +12,7 @@ const ListTaskComponent = () => {
     useEffect(() => {
         getAllTask();
     }, [])
+    
     function getAllTask(){
         listTasks().then((response) => {
             setTasks(response.data);
